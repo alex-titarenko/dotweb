@@ -22,12 +22,12 @@ namespace TAlex.Web.Diagnostics
 
         public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
-            base.TraceData(eventCache, source, eventType, id, ToXPathNavigator(data));
+            base.TraceData(eventCache, source, eventType, id, ToXPathNavigator(data, source));
         }
 
         public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, params object[] data)
         {
-            base.TraceData(eventCache, source, eventType, id, data.Select(x => ToXPathNavigator(x)).ToArray());
+            base.TraceData(eventCache, source, eventType, id, data.Select(x => ToXPathNavigator(x, source)).ToArray());
         }
 
         public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id)
@@ -46,7 +46,7 @@ namespace TAlex.Web.Diagnostics
         }
 
 
-        private object ToXPathNavigator(object data)
+        private object ToXPathNavigator(object data, string source)
         {
             TraceRecord record = new TraceRecord();
 
@@ -54,9 +54,19 @@ namespace TAlex.Web.Diagnostics
                 FillRecord(record, HttpContext.Current);
 
             if (data is Exception)
+            {
                 record.Exception = new ExceptionInfo((Exception)data);
+                record.Description = record.Exception.Message;
+            }
             else
+            {
                 record.Event = data + String.Empty;
+                record.Description = record.Event;
+            }
+            if (String.IsNullOrWhiteSpace(record.Description))
+            {
+                record.Description = source;
+            }
 
             XmlSerializer ser = new XmlSerializer(record.GetType());
             using (MemoryStream stream = new MemoryStream())

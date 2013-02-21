@@ -6,6 +6,10 @@ namespace TAlex.Web.Diagnostics
 {
     public class TraceRecord
     {
+        public string TraceIdentifier { get; set; }
+
+        public string Description { get; set; }
+
         public string RequestUrl { get; set; }
 
         public string UserAgent { get; set; }
@@ -27,5 +31,11 @@ namespace TAlex.Web.Diagnostics
         public string Event { get; set; }
 
         public ExceptionInfo Exception { get; set; }
+
+
+        public TraceRecord()
+        {
+            TraceIdentifier = "TAlex.Web.Diagnostics.WebRequestTraceListener";
+        }
     }
 }
