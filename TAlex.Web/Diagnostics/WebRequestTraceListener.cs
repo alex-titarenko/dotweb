@@ -60,8 +60,7 @@ namespace TAlex.Web.Diagnostics
             }
             else
             {
-                record.Event = data + String.Empty;
-                record.Description = record.Event;
+                record.Description = data + String.Empty;
             }
             if (String.IsNullOrWhiteSpace(record.Description))
             {

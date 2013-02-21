@@ -28,8 +28,6 @@ namespace TAlex.Web.Diagnostics
 
         public string UserHostAddress { get; set; }
 
-        public string Event { get; set; }
-
         public ExceptionInfo Exception { get; set; }
 
 
