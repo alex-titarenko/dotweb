@@ -60,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Mime\BasicMimeTypeProvider.cs" />
     <Compile Include="Services\Mime\IMimeTypeProvider.cs" />
+    <Compile Include="Services\Uploading\IUploadFileService.cs" />
+    <Compile Include="Services\Uploading\UploadFileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
