@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\LogExceptionFilterAttribute.cs" />
     <Compile Include="Helpers\FlashMessanger.cs" />
     <Compile Include="Helpers\FlashMessangerExtensions.cs" />
     <Compile Include="Helpers\FormExtensions.cs" />
