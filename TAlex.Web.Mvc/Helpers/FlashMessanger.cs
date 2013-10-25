@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -29,8 +28,7 @@ namespace TAlex.Web.Mvc.Helpers
 
                 if (HttpContext.Current != null)
                 {
-                    messanger =
-                        HttpContext.Current.Session[FlashMessangerSessionKey] as FlashMessanger;
+                    messanger = HttpContext.Current.Session[FlashMessangerSessionKey] as FlashMessanger;
                 }
 
                 if (messanger == null)
@@ -69,12 +67,12 @@ namespace TAlex.Web.Mvc.Helpers
             }
         }
 
-        public void AddMessage(string text)
+        public virtual void AddMessage(string text)
         {
             AddMessage(text, MessageType.Message);
         }
 
-        public void AddMessage(string text, MessageType type)
+        public virtual void AddMessage(string text, MessageType type)
         {
             _messages[type].Enqueue(text);
         }

@@ -8,10 +8,10 @@ namespace TAlex.Web.Services.Uploading
 {
     public class UploadFileService : IUploadFileService
     {
-        public bool TryUploadFile(HttpPostedFileBase file, string uploadDir, out string filename, bool withTimestamp = true)
-        {
-            filename = withTimestamp ? GetFileNameWithTimestamp(file.FileName) : file.FileName;
+        #region IUploadFileService Members
 
+        public bool TryUploadFile(HttpPostedFileBase file, string uploadDir, string filename)
+        {
             try
             {
                 string dir = HttpContext.Current.Server.MapPath(uploadDir);
@@ -21,13 +21,21 @@ namespace TAlex.Web.Services.Uploading
                 }
                 file.SaveAs(Path.Combine(dir, filename));
             }
-            catch (Exception ex)
+            catch (Exception exc)
             {
-                Trace.TraceError("An exception occurred while uploading file: {0}", ex);
+                Trace.TraceError("An exception occurred while uploading file: {0}", exc);
                 return false;
             }
 
             return true;
+        }
+
+        public string GetFileNameWithTimestamp(string fileName)
+        {
+            return String.Format("{0}_{1}{2}",
+                    Path.GetFileNameWithoutExtension(fileName),
+                    DateTime.Now.ToString("yyyyMMdd_hhmmss"),
+                    Path.GetExtension(fileName));
         }
 
         public void DeleteFile(string path, string uploadDir)
@@ -54,13 +62,6 @@ namespace TAlex.Web.Services.Uploading
             }
         }
 
-
-        private static string GetFileNameWithTimestamp(string fileName)
-        {
-            return String.Format("{0}_{1}{2}",
-                    Path.GetFileNameWithoutExtension(fileName),
-                    DateTime.Now.ToString("yyyyMMdd_hhmmss"),
-                    Path.GetExtension(fileName));
-        }
+        #endregion
     }
 }
