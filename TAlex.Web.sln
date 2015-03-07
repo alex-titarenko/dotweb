@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web", "TAlex.Web\TAlex.Web.csproj", "{E5D61000-6970-48C5-9DB5-4AD20720A04D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Mvc", "TAlex.Web.Mvc\TAlex.Web.Mvc.csproj", "{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9A4D9368-C899-40F5-A586-3B0F01FE08AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Test", "TAlex.Web\Test\TAlex.Web.Test.csproj", "{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Tests", "TAlex.Web\Test\TAlex.Web.Tests.csproj", "{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{016BCEF9-CE8D-4F63-A11E-4983FCC0D5D0}"
 	ProjectSection(SolutionItems) = preProject

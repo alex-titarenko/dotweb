@@ -57,7 +57,10 @@
     <Compile Include="CacheProviders\MemoryCacheProvider.cs" />
     <Compile Include="Diagnostics\TraceRecord.cs" />
     <Compile Include="Diagnostics\WebRequestTraceListener.cs" />
+    <Compile Include="IPAddressRange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Mail\IMailService.cs" />
+    <Compile Include="Services\Mail\MailService.cs" />
     <Compile Include="Services\Mime\BasicMimeTypeProvider.cs" />
     <Compile Include="Services\Mime\IMimeTypeProvider.cs" />
     <Compile Include="Services\Uploading\IUploadFileService.cs" />
