@@ -11,6 +11,6 @@
     <description>$description$</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015 T-Alex Software</copyright>
-    <tags>FlashMessanger HtmlHelper Pagination</tags>
+    <tags>MVC FlashMessanger HtmlHelper Pagination</tags>
   </metadata>
 </package>
