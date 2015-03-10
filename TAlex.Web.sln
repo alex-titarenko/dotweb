@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Mvc", "TAlex.Web.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9A4D9368-C899-40F5-A586-3B0F01FE08AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Tests", "TAlex.Web\Test\TAlex.Web.Tests.csproj", "{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Tests", "TAlex.Web.Tests\TAlex.Web.Tests.csproj", "{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{016BCEF9-CE8D-4F63-A11E-4983FCC0D5D0}"
 	ProjectSection(SolutionItems) = preProject
