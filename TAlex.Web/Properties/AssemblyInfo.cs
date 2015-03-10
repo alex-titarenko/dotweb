@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TAlex.Web")]
-[assembly: AssemblyDescription("TAlex.Web Library")]
+[assembly: AssemblyDescription("Library of web tools for .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("T-Alex Software")]
 [assembly: AssemblyProduct("TAlex.Web")]

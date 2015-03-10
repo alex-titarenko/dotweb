@@ -6,11 +6,11 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>https://bitbucket.org/t_alex/talex.web</projectUrl>
+    <projectUrl>https://github.com/T-Alex/DotWeb</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Reconfigured to release version.</releaseNotes>
-    <copyright>Copyright 2013 T-Alex Software</copyright>
-    <tags>Web Caching Mime</tags>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015 T-Alex Software</copyright>
+    <tags>Web Caching Mime Mail Upload</tags>
   </metadata>
 </package>
