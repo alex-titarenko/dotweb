@@ -44,9 +44,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TAlex.Common, Version=1.4.4800.39939, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TAlex.Common.1.4.4800.39939\lib\net35\TAlex.Common.dll</HintPath>
+    <Reference Include="TAlex.Common">
+      <HintPath>..\packages\TAlex.Common.0.2.6.0\lib\portable-net45+win+wpa81+wp80\TAlex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TAlex.Common.Diagnostics">
+      <HintPath>..\packages\TAlex.Common.Diagnostics.1.1.0.0\lib\net45\TAlex.Common.Diagnostics.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
