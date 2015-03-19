@@ -81,15 +81,23 @@ namespace TAlex.Web.Diagnostics
 
         private void FillRecord(TraceRecord record, HttpContext context)
         {
-            record.RequestUrl = context.Request.Url + String.Empty;
-            record.UserAgent = context.Request.UserAgent;
-            record.UrlReferrer = context.Request.UrlReferrer + String.Empty;
-            record.HttpMethod = context.Request.HttpMethod;
-            record.PostData = CreateQueryString(context.Request.Form);
-            record.Status = GetStatus(context);
-            record.Handler = context.Handler + String.Empty;
-            record.UserName = context.User != null ? context.User.Identity.Name : String.Empty;
-            record.UserHostAddress = context.Request.UserHostAddress;
+            try
+            {
+                var request = context.Request;
+
+                record.RequestUrl = request.Url + String.Empty;
+                record.UserAgent = request.UserAgent;
+                record.UrlReferrer = request.UrlReferrer + String.Empty;
+                record.HttpMethod = request.HttpMethod;
+                record.PostData = CreateQueryString(request.Form);
+                record.Status = GetStatus(context);
+                record.Handler = context.Handler + String.Empty;
+                record.UserName = context.User != null ? context.User.Identity.Name : String.Empty;
+                record.UserHostAddress = request.UserHostAddress;
+            }
+            catch (HttpException)
+            {
+            }
         }
 
         private string CreateQueryString(NameValueCollection vals)
