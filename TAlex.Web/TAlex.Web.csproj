@@ -67,8 +67,8 @@
     <Compile Include="Services\Mail\MailService.cs" />
     <Compile Include="Services\Mime\BasicMimeTypeProvider.cs" />
     <Compile Include="Services\Mime\IMimeTypeProvider.cs" />
-    <Compile Include="Services\Uploading\IUploadFileService.cs" />
-    <Compile Include="Services\Uploading\UploadFileService.cs" />
+    <Compile Include="Services\Storage\IStorageService.cs" />
+    <Compile Include="Services\Storage\LocalStorageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
