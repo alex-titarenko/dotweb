@@ -9,13 +9,33 @@ namespace TAlex.Web.Services.Storage
 {
     public class LocalStorageService : IStorageService
     {
+        #region Properties
+
+        public string BasePath { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public LocalStorageService()
+        {
+        }
+
+        public LocalStorageService(string basePath)
+            : base()
+        {
+            BasePath = basePath;
+        }
+
+        #endregion
+
         #region IStorageService Members
 
         public bool UploadBlob(Stream stream, string path)
         {
             try
             {
-                string mapPath = HttpContext.Current.Server.MapPath(path);
+                string mapPath = GetAbsolutePath(path);
                 string dirName = Path.GetDirectoryName(mapPath);
                 if (!Directory.Exists(dirName))
                 {
@@ -43,7 +63,7 @@ namespace TAlex.Web.Services.Storage
             {
                 try
                 {
-                    var mapPath = HttpContext.Current.Server.MapPath(path);
+                    var mapPath = GetAbsolutePath(path);
                     var dirName = Path.GetDirectoryName(mapPath);
                     File.Delete(mapPath);
 
@@ -56,6 +76,15 @@ namespace TAlex.Web.Services.Storage
                 {
                 }
             }
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private string GetAbsolutePath(string relativePath)
+        {
+            return HttpContext.Current.Server.MapPath(Path.Combine(BasePath + String.Empty, relativePath));
         }
 
         #endregion
