@@ -4,7 +4,7 @@
 Library of web tools for .NET.
 
 ## Structure
-* **TAlex.Web** - a library of web tools for .NET (include cache providers, WebRequestTraceListener, and following services: mime types, mail and upload).
+* **TAlex.Web** - a library of web tools for .NET (include cache providers and following services: mime types, mail and storage).
 * **TAlex.Web.Mvc** - a library of web tools for ASP.NET MVC (include html helpers, filters, pagination functionality and etc.).
 
 ## Get it on NuGet!
