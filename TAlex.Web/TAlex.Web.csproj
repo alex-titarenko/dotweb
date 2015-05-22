@@ -44,14 +44,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TAlex.Common, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TAlex.Common.1.0.1.0\lib\portable-net45+win+wpa81+wp80\TAlex.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="TAlex.Common.Diagnostics, Version=1.2.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TAlex.Common.Diagnostics.1.2.2.2\lib\net45\TAlex.Common.Diagnostics.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheProviders\CacheProvidersManager.cs" />
@@ -67,11 +59,6 @@
     <Compile Include="Services\Mime\IMimeTypeProvider.cs" />
     <Compile Include="Services\Storage\IStorageService.cs" />
     <Compile Include="Services\Storage\LocalStorageService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

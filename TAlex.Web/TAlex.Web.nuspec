@@ -11,10 +11,9 @@
     <description>$description$</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015 T-Alex Software</copyright>
-    <tags>Web Caching Mime Mail Upload</tags>
+    <tags>Web Caching Mime Mail Storage</tags>
 
     <dependencies>
-		<dependency id="TAlex.Common.Diagnostics" />
 	</dependencies>
   </metadata>
 </package>
