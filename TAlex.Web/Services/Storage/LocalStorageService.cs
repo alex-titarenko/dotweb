@@ -31,11 +31,11 @@ namespace TAlex.Web.Services.Storage
 
         #region IStorageService Members
 
-        public bool UploadBlob(Stream stream, string path)
+        public bool UploadBlob(Stream stream, string relativePath)
         {
             try
             {
-                string mapPath = GetAbsolutePath(path);
+                string mapPath = GetAbsolutePath(relativePath);
                 string dirName = Path.GetDirectoryName(mapPath);
                 if (!Directory.Exists(dirName))
                 {
@@ -57,13 +57,13 @@ namespace TAlex.Web.Services.Storage
             return true;
         }
 
-        public void DeleteBlob(string path)
+        public void DeleteBlob(string relativePath)
         {
-            if (path != null)
+            if (relativePath != null)
             {
                 try
                 {
-                    var mapPath = GetAbsolutePath(path);
+                    var mapPath = GetAbsolutePath(relativePath);
                     var dirName = Path.GetDirectoryName(mapPath);
                     File.Delete(mapPath);
 
@@ -76,6 +76,12 @@ namespace TAlex.Web.Services.Storage
                 {
                 }
             }
+        }
+
+        public void DownloadToFile(string sourceRelativePath, string destinationPath)
+        {
+            var mapPath = GetAbsolutePath(sourceRelativePath);
+            File.Copy(mapPath, destinationPath, true);
         }
 
         #endregion

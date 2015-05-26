@@ -6,8 +6,10 @@ namespace TAlex.Web.Services.Storage
 {
     public interface IStorageService
     {
-        bool UploadBlob(Stream stream, string path);
+        bool UploadBlob(Stream stream, string relativePath);
 
-        void DeleteBlob(string path);
+        void DeleteBlob(string relativePath);
+
+        void DownloadToFile(string sourcePath, string destinationPath);
     }
 }
