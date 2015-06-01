@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 
@@ -48,6 +49,16 @@ namespace TAlex.Web.Services.Mail
             : this(host)
         {
             Client.Port = port;
+        }
+
+        public MailService(string host, int port, string userName, string password)
+        {
+            Client = new SmtpClient(host, port)
+            {
+                UseDefaultCredentials = false,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(userName, password)
+            };
         }
 
 
