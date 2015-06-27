@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Web;
 
 
@@ -11,5 +12,7 @@ namespace TAlex.Web.Services.Storage
         void DeleteBlob(string relativePath);
 
         void DownloadToFile(string sourcePath, string destinationPath);
+
+        IEnumerable<string> ListBlobs(string relativePath);
     }
 }

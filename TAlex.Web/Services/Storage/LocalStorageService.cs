@@ -3,6 +3,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.IO;
 using System.Web;
+using System.Collections.Generic;
 
 
 namespace TAlex.Web.Services.Storage
@@ -82,6 +83,16 @@ namespace TAlex.Web.Services.Storage
         {
             var mapPath = GetAbsolutePath(sourceRelativePath);
             File.Copy(mapPath, destinationPath, true);
+        }
+
+        public IEnumerable<string> ListBlobs(string relativePath)
+        {
+            string mapPath = GetAbsolutePath(relativePath);
+            if (!Directory.Exists(mapPath))
+            {
+                return new List<string>();
+            }
+            return Directory.EnumerateFiles(mapPath);
         }
 
         #endregion
