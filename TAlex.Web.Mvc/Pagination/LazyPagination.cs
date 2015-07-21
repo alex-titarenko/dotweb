@@ -7,7 +7,7 @@ using System.Text;
 
 namespace TAlex.Web.Mvc.Pagination
 {
-    public class LazyPagination<T> : IPagination<T>
+    public class LazyPagination<TSource, TResult> : IPagination<TResult>
     {
         #region Fields
 
@@ -18,27 +18,30 @@ namespace TAlex.Web.Mvc.Pagination
 
         private int _totalItems;
 
-        private IList<T> _results;
+        private IList<TResult> _results;
 
         #endregion
 
         #region Properties
 
-        public IQueryable<T> Query
+        public IQueryable<TSource> Query
         {
             get;
             protected set;
         }
 
+        public Func<TSource, TResult> Converter { get; protected set; }
+
         #endregion
 
         #region Constructors
 
-        public LazyPagination(IQueryable<T> query, int pageNumber, int pageSize)
+        public LazyPagination(IQueryable<TSource> query, int pageNumber, int pageSize, Func<TSource, TResult> converter)
 		{
 			PageNumber = pageNumber;
 			PageSize = pageSize;
 			Query = query;
+            Converter = converter;
 		}
 
         #endregion
@@ -113,14 +116,14 @@ namespace TAlex.Web.Mvc.Pagination
 
         public IEnumerator GetEnumerator()
         {
-            return ((IEnumerable<T>)this).GetEnumerator();
+            return ((IEnumerable<TResult>)this).GetEnumerator();
         }
 
         #endregion
 
-        #region IEnumerable<T> Members
+        #region IEnumerable<TResult> Members
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        IEnumerator<TResult> IEnumerable<TResult>.GetEnumerator()
         {
             LazyLoadQuery();
 
@@ -141,7 +144,9 @@ namespace TAlex.Web.Mvc.Pagination
                 _totalItems = Query.Count();
 
                 int numberToSkip = (PageNumber - 1) * PageSize;
-                _results = Query.Skip(numberToSkip).Take(PageSize).ToList();
+
+                var page = Query.Skip(numberToSkip).Take(PageSize).ToList();
+                _results = page.Select(Converter).ToList();
             }
         }
 

@@ -19,7 +19,7 @@ namespace TAlex.Web.Mvc.Pagination
         /// <returns>An IPagination of T</returns>
         public static IPagination<T> AsPagination<T>(this IEnumerable<T> source, int pageNumber)
         {
-            return source.AsPagination(pageNumber, LazyPagination<T>.DefaultPageSize);
+            return source.AsPagination(pageNumber, LazyPagination<T, T>.DefaultPageSize);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TAlex.Web.Mvc.Pagination
         /// <returns>An IPagination of T</returns>
         public static IPagination<T> AsPagination<T>(this IQueryable<T> source, int pageNumber)
         {
-            return source.AsPagination(pageNumber, LazyPagination<T>.DefaultPageSize);
+            return source.AsPagination(pageNumber, LazyPagination<T, T>.DefaultPageSize);
         }
 
         /// <summary>
@@ -49,13 +49,13 @@ namespace TAlex.Web.Mvc.Pagination
                 throw new ArgumentOutOfRangeException("pageNumber", "The page number should be greater than or equal to 1.");
             }
 
-            return new LazyPagination<T>(source.AsQueryable(), pageNumber, pageSize);
+            return new LazyPagination<T, T>(source.AsQueryable(), pageNumber, pageSize, x => x);
         }
 
         /// <summary>
         /// Converts the speciied IQueryable into an IPagination using the specified page size and returns the specified page. 
         /// </summary>
-        /// <typeparam name="T">Type of object in the collection</typeparam>
+        /// <typeparam name="T">Type of object in the collection.</typeparam>
         /// <param name="source">Source queryable to convert to the paged list.</param>
         /// <param name="pageNumber">The page number to return.</param>
         /// <param name="pageSize">Number of objects per page.</param>
@@ -67,7 +67,27 @@ namespace TAlex.Web.Mvc.Pagination
                 throw new ArgumentOutOfRangeException("pageNumber", "The page number should be greater than or equal to 1.");
             }
 
-            return new LazyPagination<T>(source, pageNumber, pageSize);
+            return new LazyPagination<T, T>(source, pageNumber, pageSize, x => x);
+        }
+
+        /// <summary>
+        /// Converts the speciied IQueryable into an IPagination using the specified page size and entity converter and returns the specified page.
+        /// </summary>
+        /// <typeparam name="TSource">Type of source object in the collection.</typeparam>
+        /// <typeparam name="TResult">Type of result object in the collection.</typeparam>
+        /// <param name="source">Source queryable to convert to the paged list.</param>
+        /// <param name="pageNumber">The page number to return.</param>
+        /// <param name="pageSize">Number of objects per page.</param>
+        /// <param name="converter">A function that specifies mapping between source type and result.</param>
+        /// <returns>An IPagination of TResult</returns>
+        public static IPagination<TResult> AsPagination<TSource, TResult>(this IQueryable<TSource> source, int pageNumber, int pageSize, Func<TSource, TResult> converter)
+        {
+            if (pageNumber < 1)
+            {
+                throw new ArgumentOutOfRangeException("pageNumber", "The page number should be greater than or equal to 1.");
+            }
+
+            return new LazyPagination<TSource, TResult>(source, pageNumber, pageSize, converter);
         }
     }
 }
