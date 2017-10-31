@@ -32,8 +32,13 @@ namespace TAlex.Web.Services.Storage
 
         #region IStorageService Members
 
-        public bool UploadBlob(Stream stream, string relativePath)
+        public bool UploadBlob(Stream stream, string relativePath, IDictionary<string, string> blobMetadata)
         {
+            if (blobMetadata?.Count > 0)
+            {
+                throw new InvalidOperationException($"{blobMetadata} is not supported in this implementation.");
+            }
+
             try
             {
                 string mapPath = GetAbsolutePath(relativePath);
