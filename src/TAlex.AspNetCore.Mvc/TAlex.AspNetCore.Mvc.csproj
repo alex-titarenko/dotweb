@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <RootNamespace>TAlex.AspNetCore.Mvc</RootNamespace>
+    <AssemblyName>TAlex.AspNetCore.Mvc</AssemblyName>
+    <Product>TAlex.AspNetCore.Mvc</Product>
+    <Version>2.0.0</Version>
+    <Description>Library of web tools for ASP.NET MVC</Description>
+    <PackageTags>MVC FlashMessanger HtmlHelper Pagination</PackageTags>
+    <Authors>Alex Titarenko</Authors>
+    <PackageProjectUrl>https://github.com/T-Alex/DotWeb</PackageProjectUrl>
+    <Copyright>Copyright 2018 Alex Titarenko</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.3" />
+  </ItemGroup>
+</Project>

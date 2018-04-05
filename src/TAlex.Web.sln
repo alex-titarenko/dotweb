@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2011
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TAlex.Web", "TAlex.Web\TAlex.Web.csproj", "{E5D61000-6970-48C5-9DB5-4AD20720A04D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TAlex.AspNetCore.Mvc", "TAlex.AspNetCore.Mvc\TAlex.AspNetCore.Mvc.csproj", "{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9A4D9368-C899-40F5-A586-3B0F01FE08AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAlex.Web.Tests", "TAlex.Web.Tests\TAlex.Web.Tests.csproj", "{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5D61000-6970-48C5-9DB5-4AD20720A04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D61000-6970-48C5-9DB5-4AD20720A04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D61000-6970-48C5-9DB5-4AD20720A04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D61000-6970-48C5-9DB5-4AD20720A04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B73EA6A0-A2B1-47BF-AA0F-2FFAACB86238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22A22AA-4BB3-48E2-9C28-EC106A95A01B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C22A22AA-4BB3-48E2-9C28-EC106A95A01B} = {9A4D9368-C899-40F5-A586-3B0F01FE08AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {161F07B0-9A14-4725-8515-CF99F3BC4B6B}
+	EndGlobalSection
+EndGlobal
