@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace TAlex.Web.Mvc.Pagination
+namespace TAlex.AspNetCore.Mvc.Pagination
 {
     /// <summary>
     /// Represents a collection of objects that has been split into pages.

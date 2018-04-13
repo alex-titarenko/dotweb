@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace TAlex.Web.Mvc.Pagination
+namespace TAlex.AspNetCore.Mvc.Pagination
 {
     /// <summary>
 	/// Extension methods for creating paged lists.

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using TAlex.Web.Mvc.Pagination;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using TAlex.AspNetCore.Mvc.Pagination;
 
 
-namespace TAlex.Web.Mvc.UI.Pager
+namespace TAlex.AspNetCore.Mvc.UI.Pager
 {
     public static class HtmlHelperExtensions
     {
@@ -12,7 +12,7 @@ namespace TAlex.Web.Mvc.UI.Pager
         /// <param name="helper">The HTML Helper</param>
         /// <param name="pagination">The datasource</param>
         /// <returns>A Pager component</returns>
-        public static Pager Pager(this HtmlHelper helper, IPagination pagination)
+        public static Pager Pager(this IHtmlHelper helper, IPagination pagination)
         {
             return new Pager(helper.ViewContext, pagination.PageNumber, pagination.TotalPages, pagination.TotalItems);
         }

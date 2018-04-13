@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace TAlex.Web.Mvc.Pagination
+namespace TAlex.AspNetCore.Mvc.Pagination
 {
     public class LazyPagination<TSource, TResult> : IPagination<TResult>
     {

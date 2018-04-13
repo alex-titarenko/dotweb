@@ -2,26 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using System;
 
-namespace TAlex.Web.Mvc.Helpers
+namespace TAlex.Web.Mvc.Extensions
 {
     public static class ImageExtensions
     {
-        public static HtmlString Image(this HtmlHelper helper, string id, string src, string alternateText)
+        public static IHtmlContent Image(this IHtmlHelper helper, string id, string src, string alternateText)
         {
             return Image(helper, id, src, alternateText, null);
 
         }
 
-        public static HtmlString Image(this HtmlHelper helper, string id, string src, string alternateText, object htmlAttributes)
+        public static IHtmlContent Image(this IHtmlHelper helper, string id, string src, string alternateText, object htmlAttributes)
         {
             return Image(helper, id, src, null, alternateText, htmlAttributes);
         }
 
-        public static HtmlString Image(this HtmlHelper helper, string id, string src, string srcSet, string alternateText, object htmlAttributes)
+        public static IHtmlContent Image(this IHtmlHelper helper, string id, string src, string srcSet, string alternateText, object htmlAttributes)
         {
             // Instantiate a UrlHelper 
             var actionContext = new ActionContext(helper.ViewContext.HttpContext, helper.ViewContext.RouteData, helper.ViewContext.ActionDescriptor);

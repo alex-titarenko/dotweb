@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace TAlex.Web.Mvc.UI.Pager
+namespace TAlex.AspNetCore.Mvc.UI.Pager
 {
     public class Pager : IHtmlContent
     {

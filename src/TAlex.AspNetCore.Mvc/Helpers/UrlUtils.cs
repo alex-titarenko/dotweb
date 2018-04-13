@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
-namespace TAlex.Web.Mvc.Helpers
+namespace TAlex.AspNetCore.Mvc.Helpers
 {
     public static class UrlUtils
     {

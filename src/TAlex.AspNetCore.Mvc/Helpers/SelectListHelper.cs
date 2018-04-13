@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace TAlex.Web.Mvc.Helpers
+namespace TAlex.AspNetCore.Mvc.Helpers
 {
     public static class SelectListHelper
     {

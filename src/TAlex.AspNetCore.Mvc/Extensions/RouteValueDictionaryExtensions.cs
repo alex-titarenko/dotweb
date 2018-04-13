@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 
-namespace TAlex.Web.Mvc.Helpers
+namespace TAlex.AspNetCore.Mvc.Extensions
 {
     public static class RouteValueDictionaryExtensions
     {

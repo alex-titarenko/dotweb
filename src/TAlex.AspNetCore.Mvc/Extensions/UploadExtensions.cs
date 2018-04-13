@@ -1,75 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace TAlex.Web.Mvc.Helpers
+
+namespace TAlex.AspNetCore.Mvc.Extensions
 {
     public static class UploadExtensions
     {
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name)
         {
             return htmlHelper.Upload(name, (IDictionary<string, object>)null);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept)
         {
             return htmlHelper.Upload(name, accept, (IDictionary<string, object>)null);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept)
         {
             return htmlHelper.Upload(name, accept, (IDictionary<string, object>)null);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept, bool multiple)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept, bool multiple)
         {
             return htmlHelper.Upload(name, accept, multiple, (IDictionary<string, object>)null);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, bool multiple)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, bool multiple)
         {
             return htmlHelper.Upload(name, accept, multiple, (IDictionary<string, object>)null);
         }
 
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.Upload(name, null, htmlAttributes);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, object htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, object htmlAttributes)
         {
             return htmlHelper.Upload(name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept, IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, false, htmlAttributes);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept, object htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept, object htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, false, htmlAttributes);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, object htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, object htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
             List<string> acceptValues = new List<string>();
             // TODO: Need to refactoring.
@@ -86,59 +85,59 @@ namespace TAlex.Web.Mvc.Helpers
             return htmlHelper.Upload(name, String.Join(",", acceptValues), multiple, htmlAttributes);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, object htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, object htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, multiple, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
             return UploadHelper(htmlHelper, name, accept, multiple, htmlAttributes);
         }
 
-        public static HtmlString Upload(this HtmlHelper htmlHelper, string name, string accept, bool multiple, object htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, string accept, bool multiple, object htmlAttributes)
         {
             return htmlHelper.Upload(name, accept, multiple, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression));
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple);
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple);
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple, htmlAttributes);
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple, htmlAttributes);
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple, object htmlAttributes)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string accept, bool multiple, object htmlAttributes)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple, htmlAttributes);
         }
 
-        public static HtmlString UploadFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple, object htmlAttributes)
+        public static IHtmlContent UploadFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, UploadFile accept, bool multiple, object htmlAttributes)
         {
             return htmlHelper.Upload(ExpressionHelper.GetExpressionText((LambdaExpression)expression), accept, multiple, htmlAttributes);
         }
 
 
-        private static HtmlString UploadHelper(HtmlHelper htmlHelper, string name, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        private static IHtmlContent UploadHelper(IHtmlHelper htmlHelper, string name, string accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
             string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             
