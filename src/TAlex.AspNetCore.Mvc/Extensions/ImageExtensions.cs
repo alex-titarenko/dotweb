@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
 using System;
 
-namespace TAlex.Web.Mvc.Extensions
+namespace TAlex.AspNetCore.Mvc.Extensions
 {
     public static class ImageExtensions
     {
