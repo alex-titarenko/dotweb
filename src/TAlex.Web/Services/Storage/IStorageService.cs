@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Web;
+using System.Threading.Tasks;
 
 
 namespace TAlex.Web.Services.Storage
 {
     public interface IStorageService
     {
-        bool UploadBlob(Stream stream, string relativePath, IDictionary<string, string> blobMetadata = null);
+        Task<bool> UploadBlobAsync(Stream stream, string relativePath, IDictionary<string, string> blobMetadata = null);
 
-        void DeleteBlob(string relativePath);
+        Task DeleteBlobAsync(string relativePath);
 
-        void DownloadToFile(string sourcePath, string destinationPath);
+        Task DownloadToFileAsync(string sourcePath, string destinationPath);
 
-        IEnumerable<string> ListBlobs(string relativePath);
+        Task<IEnumerable<string>> ListBlobsAsync(string relativePath);
     }
 }

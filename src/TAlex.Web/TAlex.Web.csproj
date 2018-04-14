@@ -4,7 +4,7 @@
     <RootNamespace>TAlex.Web</RootNamespace>
     <AssemblyName>TAlex.Web</AssemblyName>
     <Product>TAlex.Web</Product>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Description>Library of web tools for .NET</Description>
     <PackageTags>Web Caching Mime Mail Storage</PackageTags>
     <Authors>Alex Titarenko</Authors>
