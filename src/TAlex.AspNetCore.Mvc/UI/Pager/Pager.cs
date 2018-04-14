@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Primitives;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 
@@ -14,9 +18,6 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         private readonly int _pageNumber;
         private readonly int _totalPages;
         private readonly int _totalItems;
-        private readonly ViewContext _viewContext;
-
-
         private int _displayedPages = 9;             // The maximum number of page numbers to display.
 
         protected string _cssClass = "reset pagination";
@@ -39,10 +40,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
 
         #region Properties
 
-        protected ViewContext ViewContext
-        {
-            get { return _viewContext; }
-        }
+        protected ViewContext ViewContext { get; }
 
         #endregion
 
@@ -58,7 +56,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         public Pager(ViewContext context, int pageNumber, int totalPages, int totalItems)
         {
             //_pagination = pagination;
-            _viewContext = context;
+            ViewContext = context;
 
             _pageNumber = pageNumber;
             _totalPages = totalPages;
@@ -296,14 +294,24 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
 
         private string CreateDefaultUrl(int pageNumber)
         {
-            var query = _viewContext.HttpContext.Request.QueryString;
-            query.Add(_pageQueryName, pageNumber.ToString());
+            var routeValues = new Dictionary<string, StringValues>
+            {
+                { _pageQueryName, pageNumber.ToString() }
+            };
 
-            var queryPart = query.ToUriComponent();
+            //Re-add existing querystring
+            foreach (var key in ViewContext.HttpContext.Request.Query.Keys.Where(key => key != null))
+            {
+                if (!routeValues.ContainsKey(key))
+                {
+                    routeValues[key] = ViewContext.HttpContext.Request.Query[key];
+                }
+            }
 
-            var path = _viewContext.HttpContext.Request.Path.ToUriComponent();
+            var queryPart = QueryString.Create(routeValues);
+            var path = ViewContext.HttpContext.Request.Path.ToUriComponent();
 
-            return '/' + path.TrimStart('/') + queryPart;
+            return '/' + path.TrimStart('/') + queryPart.ToUriComponent();
         }
 
         #endregion
