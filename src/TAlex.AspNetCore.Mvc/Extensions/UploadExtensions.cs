@@ -68,9 +68,9 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             return htmlHelper.Upload(name, accept, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static IHtmlContent Upload(this HtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
+        public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, IDictionary<string, object> htmlAttributes)
         {
-            List<string> acceptValues = new List<string>();
+            var acceptValues = new List<string>();
             // TODO: Need to refactoring.
             //if (!accept.HasFlag(UploadFile.Any))
             //{
@@ -82,7 +82,7 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             //        acceptValues.Add("image/*");
             //}
 
-            return htmlHelper.Upload(name, String.Join(",", acceptValues), multiple, htmlAttributes);
+            return htmlHelper.Upload(name, string.Join(",", acceptValues), multiple, htmlAttributes);
         }
 
         public static IHtmlContent Upload(this IHtmlHelper htmlHelper, string name, UploadFile accept, bool multiple, object htmlAttributes)
