@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Html;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Web;
 using TAlex.AspNetCore.Mvc.Sorting;
@@ -10,14 +12,14 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
 {
     public class GridColumn<T> : IGridColumn<T> where T : class
     {
-        private string _displayName;
-        private bool _doNotSplit;
-        private readonly Func<T, object> _columnValueFunc;
-        private Func<T, bool> _cellCondition = x => true;
-        private string _format;
-        private bool _htmlEncode = true;
-        private List<Func<GridRowViewData<T>, IDictionary<string, object>>> _attributes = new List<Func<GridRowViewData<T>, IDictionary<string, object>>>();
-        private Func<object, object> _headerRenderer = x => null;
+        private string displayName;
+        private bool doNotSplit;
+        private readonly Func<T, object> columnValueFunc;
+        private Func<T, bool> cellCondition = x => true;
+        private string format;
+        private bool htmlEncode = true;
+        private List<Func<GridRowViewData<T>, IDictionary<string, object>>> attributes = new List<Func<GridRowViewData<T>, IDictionary<string, object>>>();
+        private Func<object, object> headerRenderer = x => null;
 
         /// <summary>
         /// Creates a new instance of the GridColumn class
@@ -25,9 +27,9 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
         public GridColumn(Func<T, object> columnValueFunc, string name, Type type)
         {
             Name = name;
-            _displayName = name;
+            this.displayName = name;
             ColumnType = type;
-            _columnValueFunc = columnValueFunc;
+            this.columnValueFunc = columnValueFunc;
         }
 
         public bool Sortable { get; private set; } = true;
@@ -50,11 +52,11 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
         {
             get
             {
-                if (_doNotSplit)
+                if (this.doNotSplit)
                 {
-                    return _displayName;
+                    return this.displayName;
                 }
-                return SplitPascalCase(_displayName);
+                return SplitPascalCase(this.displayName);
             }
         }
 
@@ -68,7 +70,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
 
         IGridColumn<T> IGridColumn<T>.Attributes(Func<GridRowViewData<T>, IDictionary<string, object>> attributes)
         {
-            _attributes.Add(attributes);
+            this.attributes.Add(attributes);
             return this;
         }
 
@@ -112,7 +114,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
         private IDictionary<string, object> GetAttributesFromRow(GridRowViewData<T> row)
         {
             var dictionary = new Dictionary<string, object>();
-            var pairs = _attributes.SelectMany(attributeFunc => attributeFunc(row));
+            var pairs = this.attributes.SelectMany(attributeFunc => attributeFunc(row));
 
             foreach (var pair in pairs)
             {
@@ -124,26 +126,26 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
 
         public IGridColumn<T> Named(string name)
         {
-            _displayName = name;
-            _doNotSplit = true;
+            this.displayName = name;
+            this.doNotSplit = true;
             return this;
         }
 
         public IGridColumn<T> DoNotSplit()
         {
-            _doNotSplit = true;
+            this.doNotSplit = true;
             return this;
         }
 
         public IGridColumn<T> Format(string format)
         {
-            _format = format;
+            this.format = format;
             return this;
         }
 
         public IGridColumn<T> CellCondition(Func<T, bool> func)
         {
-            _cellCondition = func;
+            this.cellCondition = func;
             return this;
         }
 
@@ -155,13 +157,13 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
 
         public IGridColumn<T> Header(Func<object, object> headerRenderer)
         {
-            _headerRenderer = headerRenderer;
+            this.headerRenderer = headerRenderer;
             return this;
         }
 
         public IGridColumn<T> Encode(bool shouldEncode)
         {
-            _htmlEncode = shouldEncode;
+            this.htmlEncode = shouldEncode;
             return this;
         }
 
@@ -189,32 +191,48 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
         /// </summary>
         /// <param name="instance">Instance from which the value should be obtained</param>
         /// <returns>Item to be rendered</returns>
-        public object GetValue(T instance)
+        public string GetValue(T instance)
         {
-            if (!_cellCondition(instance))
+            if (!this.cellCondition(instance))
             {
                 return null;
             }
 
-            var value = _columnValueFunc(instance);
+            var value = this.columnValueFunc(instance);
 
-            if (!string.IsNullOrEmpty(_format))
+            if (!string.IsNullOrEmpty(this.format))
             {
-                value = string.Format(_format, value);
+                value = string.Format(this.format, HtmlContentToString(value));
             }
 
-            if (_htmlEncode && value != null && !(value is IHtmlContent))
+            if (this.htmlEncode && value != null && !(value is IHtmlContent))
             {
                 value = HttpUtility.HtmlEncode(value.ToString());
             }
 
-            return value;
+            return HtmlContentToString(value);
         }
 
         public string GetHeader()
         {
-            var header = _headerRenderer(null);
-            return header == null ? null : header.ToString();
+            var header = this.headerRenderer(null);
+            return HtmlContentToString(header);
+        }
+
+        private static string HtmlContentToString(object obj)
+        {
+            if (obj is IHtmlContent)
+            {
+                var html = obj as IHtmlContent;
+
+                using (var writer = new StringWriter())
+                {
+                    html.WriteTo(writer, HtmlEncoder.Default);
+                    return writer.ToString();
+                }
+            }
+
+            return obj?.ToString();
         }
     }
 }

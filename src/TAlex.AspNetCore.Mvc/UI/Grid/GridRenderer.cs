@@ -82,9 +82,9 @@ namespace TAlex.AspNetCore.Mvc.UI.Grid
         {
             var cellValue = column.GetValue(rowData.Item);
 
-            if (cellValue != null)
+            if (!string.IsNullOrEmpty(cellValue))
             {
-                RenderText(cellValue.ToString());
+                RenderText(cellValue);
             }
         }
 
