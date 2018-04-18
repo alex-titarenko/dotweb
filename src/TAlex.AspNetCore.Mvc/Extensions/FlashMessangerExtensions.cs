@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,25 +17,23 @@ namespace TAlex.AspNetCore.Mvc.Extensions
 
         public static void AddFlashMessage(this Controller controller, string text, FlashMessageType type = FlashMessageType.Message)
         {
-            var messages = controller.TempData.Peek(FlashMessangerSessionKey) as IDictionary<FlashMessageType, Queue<string>>;
-
-            if (messages == null)
-            {
-                messages = InitializeMessages();
-                controller.TempData[FlashMessangerSessionKey] = messages;
-            }
-
+            var messagesString = (string)controller.TempData.Peek(FlashMessangerSessionKey);
+            var messages = DeserializeMessages(messagesString);
             messages[type].Enqueue(text);
+
+            controller.TempData[FlashMessangerSessionKey] = SerializeMessages(messages);            
         }
 
         public static IHtmlContent FlashMessages(this IHtmlHelper source, FlashMessageType? messageType = null)
         {
-            var messages = source.TempData[FlashMessangerSessionKey] as IDictionary<FlashMessageType, Queue<string>>;
+            var messagesString = (string)source.TempData[FlashMessangerSessionKey];
 
             var output = new StringBuilder();
 
-            if (messages != null)
+            if (!string.IsNullOrEmpty(messagesString))
             {
+                var messages = DeserializeMessages(messagesString);
+
                 if (messageType.HasValue)
                 {
                     return new HtmlString(RetrieveMessages(messageType.Value, messages[messageType.Value]));
@@ -80,6 +79,23 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             }
 
             return messages;
+        }
+
+        private static string SerializeMessages(IDictionary<FlashMessageType, Queue<string>> messages)
+        {
+            return JsonConvert.SerializeObject(messages);
+        }
+
+        private static IDictionary<FlashMessageType, Queue<string>> DeserializeMessages(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                return JsonConvert.DeserializeObject<Dictionary<FlashMessageType, Queue<string>>>(str);
+            }
+            else
+            {
+                return InitializeMessages();
+            }
         }
 
         #endregion
