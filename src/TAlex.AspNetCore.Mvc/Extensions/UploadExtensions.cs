@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
+using System.Text.Encodings.Web;
+using System.IO;
 
 namespace TAlex.AspNetCore.Mvc.Extensions
 {
@@ -174,7 +175,12 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             var validator = (ValidationHtmlAttributeProvider)htmlHelper.ViewContext.HttpContext.RequestServices.GetService(typeof(ValidationHtmlAttributeProvider));
             validator?.AddAndTrackValidationAttributes(htmlHelper.ViewContext, modelExplorer, expression, tagBuilder.Attributes);
 
-            return new HtmlString(tagBuilder.ToString());
+            using (var writer = new StringWriter())
+            {
+                tagBuilder.WriteTo(writer, HtmlEncoder.Default);
+                var htmlOutput = writer.ToString();
+                return new HtmlString(htmlOutput);
+            }
         }
     }
 

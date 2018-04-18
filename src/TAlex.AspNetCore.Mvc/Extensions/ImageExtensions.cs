@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
 using System;
+using System.IO;
+using System.Text.Encodings.Web;
 
 namespace TAlex.AspNetCore.Mvc.Extensions
 {
@@ -27,7 +29,7 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             UrlHelper urlHelper = new UrlHelper(actionContext);
 
             // Create tag builder
-            TagBuilder builder = new TagBuilder("img")
+            var builder = new TagBuilder("img")
             {
                 TagRenderMode = TagRenderMode.SelfClosing
             };
@@ -48,7 +50,12 @@ namespace TAlex.AspNetCore.Mvc.Extensions
             }
 
             // Render tag
-            return new HtmlString(builder.ToString());
+            using (var writer = new StringWriter())
+            {
+                builder.WriteTo(writer, HtmlEncoder.Default);
+                var htmlOutput = writer.ToString();
+                return new HtmlString(htmlOutput);
+            }
         }
     }
 }
