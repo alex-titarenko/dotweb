@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.Encodings.Web;
 using System.IO;
 
@@ -172,7 +173,7 @@ namespace TAlex.AspNetCore.Mvc.Extensions
 
             var expression = name;
             var modelExplorer = ExpressionMetadataProvider.FromStringExpression(expression, htmlHelper.ViewContext.ViewData, htmlHelper.MetadataProvider);
-            var validator = (ValidationHtmlAttributeProvider)htmlHelper.ViewContext.HttpContext.RequestServices.GetService(typeof(ValidationHtmlAttributeProvider));
+            var validator = htmlHelper.ViewContext.HttpContext.RequestServices.GetService<ValidationHtmlAttributeProvider>();
             validator?.AddAndTrackValidationAttributes(htmlHelper.ViewContext, modelExplorer, expression, tagBuilder.Attributes);
 
             using (var writer = new StringWriter())

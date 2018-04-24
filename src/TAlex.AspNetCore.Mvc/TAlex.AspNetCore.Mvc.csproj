@@ -4,7 +4,7 @@
     <RootNamespace>TAlex.AspNetCore.Mvc</RootNamespace>
     <AssemblyName>TAlex.AspNetCore.Mvc</AssemblyName>
     <Product>TAlex.AspNetCore.Mvc</Product>
-    <Version>3.4.3</Version>
+    <Version>3.4.4</Version>
     <Description>Library of web tools for ASP.NET MVC</Description>
     <PackageTags>MVC FlashMessanger HtmlHelper Pagination</PackageTags>
     <Authors>Alex Titarenko</Authors>
