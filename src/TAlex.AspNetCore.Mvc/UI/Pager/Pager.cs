@@ -15,26 +15,26 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
     {
         #region Fields
 
-        private readonly int _pageNumber;
-        private readonly int _totalPages;
-        private readonly int _totalItems;
-        private int _displayedPages = 9;             // The maximum number of page numbers to display.
+        private readonly int pageNumber;
+        private readonly int totalPages;
+        private readonly int totalItems;
+        private int displayedPages = 9;             // The maximum number of page numbers to display.
 
-        protected string _cssClass = "reset pagination";
-        protected string _containerTagName = "ul";
+        protected string cssClass = "reset pagination";
+        protected string containerTagName = "ul";
 
-        protected string _navigationPagerItemWrapperFormat = "<li class=\"inline-block {1}\">{0}</li>";
-        protected string _numPagerItemWrapperFormat = "<li class=\"inline-block\">{0}</li>";
-        protected string _currentPageItemWrapperFormat = "<li class=\"inline-block active\"><a href=\"#\">{0}</a></li>";
+        protected string navigationPagerItemWrapperFormat = "<li class=\"inline-block {1}\">{0}</li>";
+        protected string numPagerItemWrapperFormat = "<li class=\"inline-block\">{0}</li>";
+        protected string currentPageItemWrapperFormat = "<li class=\"inline-block active\"><a href=\"#\">{0}</a></li>";
 
-        protected string _paginationFirst = "<span class='first'></span>";
-        protected string _paginationPrev = "<span class='prev'></span>";
-        protected string _paginationNext = "<span class='next'></span>";
-        protected string _paginationLast = "<span class='last'></span>";
+        protected string paginationFirst = "<span class='first'></span>";
+        protected string paginationPrev = "<span class='prev'></span>";
+        protected string paginationNext = "<span class='next'></span>";
+        protected string paginationLast = "<span class='last'></span>";
 
-        protected string _pageQueryName = "page";
+        protected string pageQueryName = "page";
 
-        protected Func<int, string> _urlBuilder;
+        protected Func<int, string> urlBuilder;
 
         #endregion
 
@@ -55,24 +55,33 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// <param name="totalItems">The number of items.</param>
         public Pager(ViewContext context, int pageNumber, int totalPages, int totalItems)
         {
-            //_pagination = pagination;
-            ViewContext = context;
+            this.ViewContext = context;
 
-            _pageNumber = pageNumber;
-            _totalPages = totalPages;
-            _totalItems = totalItems;
+            this.pageNumber = pageNumber;
+            this.totalPages = totalPages;
+            this.totalItems = totalItems;
 
-            _urlBuilder = CreateDefaultUrl;
+            this.urlBuilder = CreateDefaultUrl;
         }
 
         #endregion
 
         #region Methods
 
-        // For backwards compatibility with WebFormViewEngine
+        /// <summary>
+        /// Returns the string representation of Pager object.
+        /// </summary>
+        /// <returns>string of Pager object.</returns>
         public override string ToString()
         {
-            return ToHtmlString();
+            var builder = new StringBuilder();
+
+            using (var writer = new StringWriter(builder))
+            {
+                this.WriteTo(writer, HtmlEncoder.Default);
+                var result = builder.ToString();
+                return result;
+            }
         }
 
         #region Fluent Interface
@@ -82,43 +91,43 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// </summary>
         public Pager QueryParam(string queryStringParam)
         {
-            _pageQueryName = queryStringParam;
+            this.pageQueryName = queryStringParam;
             return this;
         }
 
         public Pager DisplayedPages(int count)
         {
-            _displayedPages = count;
+            this.displayedPages = count;
             return this;
         }
 
         public Pager CssClass(string @class)
         {
-            _cssClass = @class;
+            this.cssClass = @class;
             return this;
         }
 
         public Pager ContainerTagName(string tagName)
         {
-            _containerTagName = tagName;
+            this.containerTagName = tagName;
             return this;
         }
 
         public Pager NavigationPagerItemWrapperFormat(string format)
         {
-            _navigationPagerItemWrapperFormat = format;
+            this.navigationPagerItemWrapperFormat = format;
             return this;
         }
 
         public Pager NumericPagerItemWrapperFormat(string format)
         {
-            _numPagerItemWrapperFormat = format;
+            this.numPagerItemWrapperFormat = format;
             return this;
         }
 
         public Pager CurrentPageItemWrapperFormat(string format)
         {
-            _currentPageItemWrapperFormat = format;
+            this.currentPageItemWrapperFormat = format;
             return this;
         }
 
@@ -127,7 +136,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// </summary>
         public Pager First(string first)
         {
-            _paginationFirst = first;
+            this.paginationFirst = first;
             return this;
         }
 
@@ -136,7 +145,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// </summary>
         public Pager Previous(string previous)
         {
-            _paginationPrev = previous;
+            this.paginationPrev = previous;
             return this;
         }
 
@@ -145,7 +154,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// </summary>
         public Pager Next(string next)
         {
-            _paginationNext = next;
+            this.paginationNext = next;
             return this;
         }
 
@@ -154,7 +163,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// </summary>
         public Pager Last(string last)
         {
-            _paginationLast = last;
+            this.paginationLast = last;
             return this;
         }
 
@@ -164,54 +173,39 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         /// <param name="urlBuilder">Lambda expression for generating the URL used in the page links</param>
         public Pager Link(Func<int, string> urlBuilder)
         {
-            _urlBuilder = urlBuilder;
+            this.urlBuilder = urlBuilder;
             return this;
         }
 
         #endregion
 
-        #region IHtmlString Members
-
-        public string ToHtmlString()
-        {
-            if (_totalItems == 0)
-            {
-                return null;
-            }
-
-            var builder = new StringBuilder();
-            var writer = new StringWriter(builder);
-
-            if (_totalPages > 1)
-            {
-                WriteTo(writer, null);
-            }
-
-            return builder.ToString();
-        }
-
-        #endregion
+        #region IHtmlContent Members
 
         public void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
+            if (this.totalItems == 0 || this.totalPages <= 1)
+            {
+                return;
+            }
+
             StringBuilder builder = new StringBuilder();
-            builder.Append(CreateTag(_containerTagName, _cssClass));
+            builder.Append(CreateTag(this.containerTagName, this.cssClass));
 
-            builder.Append(CreateNavigationPager(1, "firstpage", _paginationFirst, _pageNumber > 1));
-            builder.Append(CreateNavigationPager(_pageNumber - 1, "prevpage", _paginationPrev, _pageNumber > 1));
+            builder.Append(CreateNavigationPager(1, "firstpage", this.paginationFirst, this.pageNumber > 1));
+            builder.Append(CreateNavigationPager(this.pageNumber - 1, "prevpage", this.paginationPrev, this.pageNumber > 1));
 
 
-            int firstVisiblePage = Math.Max(1, _pageNumber - _displayedPages / 2);
-            int lastVisiblePage = Math.Min(_totalPages, _pageNumber + _displayedPages / 2);
+            int firstVisiblePage = Math.Max(1, this.pageNumber - this.displayedPages / 2);
+            int lastVisiblePage = Math.Min(this.totalPages, this.pageNumber + this.displayedPages / 2);
 
-            int correctedPagerItemCount = Math.Min(_displayedPages, _totalPages);
+            int correctedPagerItemCount = Math.Min(this.displayedPages, this.totalPages);
             if (lastVisiblePage - firstVisiblePage + 1 < correctedPagerItemCount)
             {
                 if (firstVisiblePage == 1)
                 {
                     lastVisiblePage = correctedPagerItemCount;
                 }
-                else if (lastVisiblePage == _totalPages)
+                else if (lastVisiblePage == this.totalPages)
                 {
                     firstVisiblePage = lastVisiblePage - correctedPagerItemCount + 1;
                 }
@@ -224,20 +218,22 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
                 builder.Append(CreateNumericPager(i));
             }
 
-            if (lastVisiblePage != _totalPages) builder.Append(CreateNumericPager(lastVisiblePage + 1, "..."));
+            if (lastVisiblePage != this.totalPages) builder.Append(CreateNumericPager(lastVisiblePage + 1, "..."));
 
 
-            builder.Append(CreateNavigationPager(_pageNumber + 1, "nextpage", _paginationNext, _pageNumber < _totalPages));
+            builder.Append(CreateNavigationPager(this.pageNumber + 1, "nextpage", this.paginationNext, this.pageNumber < this.totalPages));
 
 
-            int lastPage = _totalPages;
+            int lastPage = this.totalPages;
 
-            builder.Append(CreateNavigationPager(lastPage, "lastpage", _paginationLast, _pageNumber < lastPage));
+            builder.Append(CreateNavigationPager(lastPage, "lastpage", this.paginationLast, this.pageNumber < lastPage));
 
-            builder.Append(CreateClosedTag(_containerTagName));
+            builder.Append(CreateClosedTag(this.containerTagName));
 
             writer.WriteLine(builder.ToString());
         }
+
+        #endregion
 
         #region Helpers
 
@@ -264,27 +260,27 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
             else
                 result = CreatePageDisabledLink(innerText);
 
-            result = String.Format(_navigationPagerItemWrapperFormat, result, navName);
+            result = String.Format(this.navigationPagerItemWrapperFormat, result, navName);
 
             return result;
         }
 
         private string CreateNumericPager(int pageNumber, string text = null)
         {
-            if (pageNumber == _pageNumber)
+            if (pageNumber == this.pageNumber)
             {
-                return String.Format(_currentPageItemWrapperFormat, pageNumber);
+                return String.Format(this.currentPageItemWrapperFormat, pageNumber);
             }
             else
             {
                 if (String.IsNullOrEmpty(text)) text = pageNumber.ToString();
-                return String.Format(_numPagerItemWrapperFormat, CreatePageLink(pageNumber, text));
+                return String.Format(this.numPagerItemWrapperFormat, CreatePageLink(pageNumber, text));
             }
         }
 
         private string CreatePageLink(int pageNumber, string text)
         {
-            return String.Format("<a href=\"{0}\">{1}</a>", _urlBuilder(pageNumber), text);
+            return String.Format("<a href=\"{0}\">{1}</a>", this.urlBuilder(pageNumber), text);
         }
 
         private string CreatePageDisabledLink(string text)
@@ -296,7 +292,7 @@ namespace TAlex.AspNetCore.Mvc.UI.Pager
         {
             var routeValues = new Dictionary<string, StringValues>
             {
-                { _pageQueryName, pageNumber.ToString() }
+                { this.pageQueryName, pageNumber.ToString() }
             };
 
             //Re-add existing querystring
