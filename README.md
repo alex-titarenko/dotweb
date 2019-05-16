@@ -1,5 +1,5 @@
 # DotWeb
-[![Build status](https://ci.appveyor.com/api/projects/status/1whdu2l4wkyi0t8e?svg=true)](https://ci.appveyor.com/project/T-Alex/dotweb)
+[![Build status](https://ci.appveyor.com/api/projects/status/1whdu2l4wkyi0t8e?svg=true)](https://ci.appveyor.com/project/alex-titarenko/dotweb)
 
 Library of web tools for .NET.
 
