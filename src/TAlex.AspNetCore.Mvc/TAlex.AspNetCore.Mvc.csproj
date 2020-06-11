@@ -4,12 +4,12 @@
     <RootNamespace>TAlex.AspNetCore.Mvc</RootNamespace>
     <AssemblyName>TAlex.AspNetCore.Mvc</AssemblyName>
     <Product>TAlex.AspNetCore.Mvc</Product>
-    <Version>3.4.4</Version>
+    <Version>3.4.5</Version>
     <Description>Library of web tools for ASP.NET MVC</Description>
     <PackageTags>MVC FlashMessanger HtmlHelper Pagination</PackageTags>
     <Authors>Alex Titarenko</Authors>
-    <PackageProjectUrl>https://github.com/T-Alex/DotWeb</PackageProjectUrl>
-    <Copyright>Copyright 2018 Alex Titarenko</Copyright>
+    <PackageProjectUrl>https://github.com/alex-titarenko/dotweb</PackageProjectUrl>
+    <Copyright>Copyright 2020 Alex Titarenko</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1591</NoWarn>

@@ -4,12 +4,12 @@
     <RootNamespace>TAlex.Web</RootNamespace>
     <AssemblyName>TAlex.Web</AssemblyName>
     <Product>TAlex.Web</Product>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <Description>Library of web tools for .NET</Description>
     <PackageTags>Web Caching Mime Mail Storage</PackageTags>
     <Authors>Alex Titarenko</Authors>
-    <PackageProjectUrl>https://github.com/T-Alex/DotWeb</PackageProjectUrl>
-    <Copyright>Copyright 2018 Alex Titarenko</Copyright>
+    <PackageProjectUrl>https://github.com/alex-titarenko/dotweb</PackageProjectUrl>
+    <Copyright>Copyright 2020 Alex Titarenko</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
