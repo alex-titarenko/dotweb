@@ -1,5 +1,5 @@
 # DotWeb
-![Build](https://github.com/alex-titarenko/dotweb/workflows/Build/badge.svg?branch=master)
+![Build](https://github.com/alex-titarenko/dotweb/workflows/Build/badge.svg?branch=main)
 
 Library of web tools for .NET.
 
